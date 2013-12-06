@@ -5,8 +5,6 @@ setMethod("absoluteCN", c("GRanges", "matrix", "GCAdjustParams"),
     function(input.windows, input.counts, gc.params, segment.sqrt = TRUE, ...,
              verbose = TRUE)
 {
-    require(GenomicRanges)
-    require(DNAcopy)
 
     CN.result <- GCadjustCopy(input.windows, input.counts, gc.params, verbose = verbose)
     if(segment.sqrt) CN.raw <- sqrt(CN.result@unadj.CN) else CN.raw <- CN.result@unadj.CN

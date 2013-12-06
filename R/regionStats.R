@@ -25,13 +25,13 @@ setGeneric("regionStats", function(x, ...){standardGeneric("regionStats")})
 	      message(" ", uch[ii], "-", sep="")
 	    w <- which(ch == uch[ii])
 	  
-	    tmeanReal[w,col] <- gsmoothr::tmeanC(sp[w], diffs[w,col], probeWindow=window, 
+	    tmeanReal[w,col] <- tmeanC(sp[w], diffs[w,col], probeWindow=window, 
                                            trim=mean.trim, nProbes=min.probes)
   	    if( verbose )
 	        message("R")
 	    for(j in 1:ncol(tmeanPerms[[col]])) {
 	      s <- sample(1:nrow(tmeanReal))
-	      tmeanPerms[[col]][w,j] <- gsmoothr::tmeanC(sp[w], diffs[s,col][w], probeWindow=window, 
+	      tmeanPerms[[col]][w,j] <- tmeanC(sp[w], diffs[s,col][w], probeWindow=window, 
                                                    trim=mean.trim, nProbes=min.probes)
 		    if( verbose )
 	        message(".", appendLF = FALSE)
@@ -81,8 +81,6 @@ setMethod("regionStats","AffymetrixCelSet",
 {
     if(is.null(design))
         stop("Design matrix not provided.")
-
-    require(aroma.affymetrix)
 
     cdf <- getCdf(x)
     
@@ -217,7 +215,7 @@ setMethod("regionStats","matrix",
 
 .fdrTable <- function(realScore, permScore, ch, sp, cutsLength, min.probes, max.gap, two.sides, 
                       minCutoff = .5, maxCutoff=max( abs(permScore), na.rm=TRUE ), verbose) {
-  require(gsmoothr)
+
   cuts <- seq(minCutoff,maxCutoff,length=cutsLength)
 
   fdr <- matrix(,nrow=length(cuts),ncol=4)

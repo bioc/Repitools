@@ -1,7 +1,7 @@
 
 
 QdnaData <- function(counts,regions,design,cnv.offsets=NULL,neutral=NULL) {
-	require(edgeR)
+
 # do a slew of checks
 	stopifnot( !is.null(counts) | !is.null(regions) | !is.null(design) )
 	stopifnot( nrow(design)==ncol(counts) )
