@@ -26,7 +26,9 @@ citEntry(
    entry="article",
    title = "BayMeth: Improved DNA methylation quantification for affinity capture sequencing data using a flexible Bayesian approach",
    author = "Riebler A, Menigatti M, Song JZ, Statham AL, Stirzaker C, Mahmud N, Mein CA, Clark SJ, Robinson MD",
-   journal = "arXiv:1312.3115",
-   year = 2013,
-   textVersion = "Riebler A, Menigatti M, Song JZ, Statham AL, Stirzaker C, Mahmud N, Mein CA, Clark SJ, Robinson MD (2013). BayMeth: Improved DNA methylation quantification for affinity capture sequencing data using a flexible Bayesian approach, arXiv:1312.3115."
+   journal = "Genome Biology",
+   year = 2014,
+   volume = 15,
+   pages = "R35",
+   textVersion = "Riebler A, Menigatti M, Song JZ, Statham AL, Stirzaker C, Mahmud N, Mein CA, Clark SJ, Robinson MD (2014). BayMeth: Improved DNA methylation quantification for affinity capture sequencing data using a flexible Bayesian approach, Genome Biol. 15(2):R35."
 )
