@@ -30,7 +30,7 @@ setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.in
                 .mergeOverlaps(IRanges(dat$position[tempStarts], dat$position[tempEnds]), extendRanges)
             } else IRanges(dat$position[tempStarts], dat$position[tempEnds])
         }
-
+        
         callChr <- function(dat) {
             if (verbose) cat(".")
             dat$mean <- sliding.meansd(dat$position, dat$RPKM, ipWidth*blockWidth/2)[,"mean"]
@@ -38,7 +38,7 @@ setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.in
             if (length(cutoffs)>1) sapply(cutoffs, function(x) callCutoff(dat, x)) else callCutoff(dat, cutoffs)
         }
         
-        RPKM.split <- GenomeData(split(data.frame(position=(start(bins)+end(bins))/2, RPKM=if (is.null(RPKM)) values(bins)$RPKM else RPKM), as.character(seqnames(bins))))
+        RPKM.split <- split(data.frame(position=(start(bins)+end(bins))/2, RPKM=if (is.null(RPKM)) values(bins)$RPKM else RPKM), as.character(seqnames(bins)))
         regions <- lapply(RPKM.split, callChr)
         if (verbose) cat("\n")
         if (length(cutoffs)>1) rowSums(sapply(regions, function(x) sapply(x,length))) else RangesList(regions)
@@ -87,7 +87,7 @@ setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.in
         cutoff <- cutoffs[match(TRUE, FDRTable[,"FDR"]<FDR)]
         if (is.na(cutoff)) {
             warning("No cutoff below FDR", FDR, "found! Analysis halted! Try increasing cutoffQuantile or FDR")
-            return(data=IPbins, FDRTable=FDRTable)
+            return(list(data=IPbins, FDRTable=FDRTable))
         }
         if (verbose) cat("Using cutoff of",cutoff,"for a FDR of",FDR,"\n")
     } else {

@@ -4,7 +4,7 @@ useDynLib(Repitools)
 #.onLoad <- function(lib, pkg) require(methods)
 
 #  All functions exported other than those starting with "."
-import(methods, BiocGenerics, S4Vectors, IRanges, GenomeInfoDb, GenomicRanges, BSgenome, edgeR)
+import(methods, BiocGenerics, S4Vectors, IRanges, GenomicRanges, GenomeInfoDb, BSgenome, edgeR)
 importFrom(aroma.affymetrix, AffymetrixCelSet)
 importFrom(parallel, detectCores, mclapply)
 importFrom(GenomicAlignments, findOverlaps, countOverlaps)
