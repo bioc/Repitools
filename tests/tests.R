@@ -6,11 +6,11 @@ probes <- data.frame(chr = c("chr1", "chr9", "chrY", "chr1", "chr21", "chr6", "c
 genes <- data.frame(chr = c("chr1", "chr9", "chr11", "chr1", "chr11", "chr6", "chr6", "chr22", "chrY", "chr21"), start = c(10000, 7900, 950000, 10500, 74000000, 450000, 5000000, 44000000, 1500, 9800000), end = c(12500, 9500, 1000000, 14500, 75000000, 500000, 9000000, 45000000, 3000, 10000000), strand = c('+', '-', '-', '+', '-', '-', '-', '+', '+', '-'), name = paste("Gene", 1:10), stringsAsFactors = FALSE)
 
 crossMatch <- annotationLookup(probes, genes, 5000, 5000)
-correctCrossMatch <- list(indexes = list(`Gene 1` = as.integer(c(1, 4)), `Gene 2` = as.integer(2), `Gene 3` = integer(), `Gene 4` = as.integer(c(1, 4)), `Gene 5` = integer(), `Gene 6` = as.integer(c(7, 6)), `Gene 7` = integer(), `Gene 8` = integer(), `Gene 9` = integer(), `Gene 10` = integer()), offsets = list(`Gene 1` = as.integer(c(0, 1000)), `Gene 2` = as.integer(4000), `Gene 3` = numeric(), `Gene 4` = as.integer(c(-500, 500)), `Gene 5` = numeric(), `Gene 6` = as.integer(c(100, -100)), `Gene 7` = numeric(), `Gene 8` = numeric(), `Gene 9` = numeric(), `Gene 10` = numeric()))
+correctCrossMatch <- list(indexes = list(`Gene 1` = as.integer(c(1, 4)), `Gene 2` = as.integer(2), `Gene 3` = integer(), `Gene 4` = as.integer(c(1, 4)), `Gene 5` = integer(), `Gene 6` = as.integer(c(6, 7)), `Gene 7` = integer(), `Gene 8` = integer(), `Gene 9` = integer(), `Gene 10` = integer()), offsets = list(`Gene 1` = as.integer(c(0, 1000)), `Gene 2` = as.integer(4000), `Gene 3` = numeric(), `Gene 4` = as.integer(c(-500, 500)), `Gene 5` = numeric(), `Gene 6` = as.integer(c(-100, 100)), `Gene 7` = numeric(), `Gene 8` = numeric(), `Gene 9` = numeric(), `Gene 10` = numeric()))
 names(correctCrossMatch$offsets$`Gene 1`) <- c(1, 4)
 names(correctCrossMatch$offsets$`Gene 2`) <- c(2)
 names(correctCrossMatch$offsets$`Gene 4`) <- c(1, 4)
-names(correctCrossMatch$offsets$`Gene 6`) <- c(7, 6)
+names(correctCrossMatch$offsets$`Gene 6`) <- c(6, 7)
 names(correctCrossMatch$offsets$`Gene 8`) <- character()
 names(correctCrossMatch$offsets$`Gene 9`) <- character()
 
