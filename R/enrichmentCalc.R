@@ -24,9 +24,15 @@ setMethod("enrichmentCalc", "GRanges",
         x <- suppressWarnings(resize(x, seq.len))
     }
     if(verbose) message("Getting coverage.")
-    cov.table <- colSums(table(coverage(x)))
+    cv <- coverage(x)
+    mx <- max(max(cv))
+    tbs <- lapply(cv, table)
+    ct <- data.frame(coverage=0:mx, bases=0)
     if(verbose) message("Tabulating coverage.")
-    cov.table <- data.frame(as.numeric(names(cov.table)), cov.table)
-    colnames(cov.table) <- c("coverage", "bases")
-    cov.table
+    for(i in 1:length(tbs)) {
+          m <- match(names(tbs[[i]]), ct$coverage)
+          ct$bases[m] <- ct$bases[m]+tbs[[i]]
+    }
+    ct <- ct[ct$bases>0,]
+    ct
 })
