@@ -15,7 +15,7 @@ load("/home/data/Public/Ruike_MeDIPSeq/grl_subset.Rdata")
 #[9] "MCF7_I"      
 
 # grab annotation
-refseq = makeTranscriptDbFromUCSC('hg18', tablename='refGene')
+refseq = makeTxDbFromUCSC('hg18', tablename='refGene')
 refseqGR = transcripts(refseq)
 keep <- seqnames(refseqGR) %in% paste("chr", c(1:22,"X","Y"),sep="")
 refseqGR <- refseqGR[keep]

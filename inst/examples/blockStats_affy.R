@@ -3,7 +3,7 @@ library(aroma.affymetrix)
 library(GenomicRanges)
 
 # Get annotations of genes.
-hg18info <- makeTranscriptDbFromUCSC(genome = "hg18", tablename = "refGene")
+hg18info <- makeTxDbFromUCSC(genome = "hg18", tablename = "refGene")
 genes <- transcripts(hg18info)
 
 # Normalise arrays.

@@ -6,7 +6,7 @@ library(GenomicFeatures)
 load("/home/data/Public/Ruike_MeDIPSeq/grl_subset.Rdata")
 
 # Get annotation of genes.
-hg18info <- makeTranscriptDbFromUCSC(genome = "hg18", tablename = "refGene")
+hg18info <- makeTxDbFromUCSC(genome = "hg18", tablename = "refGene")
 genes <- transcripts(hg18info)
 
 # Make counts 2500 bases upstream and 500 bases downstream of each gene.

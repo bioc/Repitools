@@ -16,7 +16,7 @@ merged <- mergeReplicates(readsList, names(readsList))
 # [1] "H3K27me3" "H3K36me3" "H3K4me3"  "MBD2IP"
 
 # Get annotations of genes.
-hg18info <- makeTranscriptDbFromUCSC(genome = "hg18", tablename = "refGene")
+hg18info <- makeTxDbFromUCSC(genome = "hg18", tablename = "refGene")
 genes <- transcripts(hg18info)
 
 # Get the coverage of each mark type at regular intervals 5000 bases either
