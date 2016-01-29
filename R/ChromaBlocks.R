@@ -63,12 +63,12 @@ setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.in
     force(rs.input)
     ipCounts <- annotationBlocksCounts(rs.ip, IPbins, seq.len=seq.len, verbose=verbose)
     #pool & normalise IP lanes & turn into RPKM - reads per kb (ipWidth/1000) per million (/lanecounts*1000000)
-    ipCounts <- rowSums(ipCounts)/sum(elementLengths(rs.ip))*1000000/(ipWidth/1000)
+    ipCounts <- rowSums(ipCounts)/sum(elementNROWS(rs.ip))*1000000/(ipWidth/1000)
     
     if (verbose) message("Counting Input lanes")
     inputCounts <- annotationBlocksCounts(rs.input, InputBins, seq.len=seq.len, verbose=verbose)
     #pool & normalise Input lanes
-    inputCounts <- rowSums(inputCounts)/sum(elementLengths(rs.input))*1000000/(inputWidth/1000)
+    inputCounts <- rowSums(inputCounts)/sum(elementNROWS(rs.input))*1000000/(inputWidth/1000)
     
     values(IPbins)$RPKM <- ipCounts-inputCounts
     rm(ipCounts, inputCounts)

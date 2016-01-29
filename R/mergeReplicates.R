@@ -10,7 +10,7 @@ setMethod("mergeReplicates", "GRangesList", function(reads, types, verbose = TRU
 
     if(verbose) message("Unlisting GRangesList.")
     readsGR <- unlist(reads, use.names = FALSE)
-    rdTypes <- Rle(types, elementLengths(reads))
+    rdTypes <- Rle(types, elementNROWS(reads))
     if(verbose) message("Splitting by types.")
     reads <- split(readsGR, rdTypes)
     metadata(reads) <- list(names(reads))

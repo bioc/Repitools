@@ -135,7 +135,7 @@ setMethod(".blocksStats", c("GRangesList", "GRanges"),
         counts <- annotationCounts(x, anno, up, down, seq.len, verbose)
 	
     lib.sizes <- switch(lib.size,
-                        lane = elementLengths(x),
+                        lane = elementNROWS(x),
                         blocks = colSums(counts),
                         ref = colSums(counts) * calcNormFactors(counts,
                               Acutoff = Acutoff))

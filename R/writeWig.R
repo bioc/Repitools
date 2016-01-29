@@ -14,7 +14,7 @@ setMethod("writeWig", "GRangesList",
     rs.cov <- IRanges::lapply(rs, coverage)
     if (normalize) {
         if (verbose) message("Calculating normalisation counts\n")
-        norm <- elementLengths(rs)/1000000
+        norm <- elementNROWS(rs)/1000000
     }
     if (is.null(design)) {
         if (verbose) message("Default design matrix\n")

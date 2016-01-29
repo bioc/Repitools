@@ -9,7 +9,7 @@ setMethod("enrichmentPlot", "GRangesList",
     x.enrich <- enrichmentCalc(x, seq.len, verbose)
     if (total.lib.size) {
         if (verbose) message("Normalising to reads per lane.")
-        x.counts <- elementLengths(x)
+        x.counts <- elementNROWS(x)
         for (i in 1:length(x))
             x.enrich[[i]]$coverage <- x.enrich[[i]]$coverage/(x.counts[[i]]/1000000)
     }
