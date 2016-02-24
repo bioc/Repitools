@@ -7,7 +7,7 @@ maskOut <- function(x, ranges){
     fo <- findOverlaps(ranges, windows(x))
 
     mask <- logical(length(x))
-    mask[fo@subjectHits] <- TRUE
+    mask[subjectHits(fo)] <- TRUE
 
     maskEmpBayes(x) <- mask
     return(x)
