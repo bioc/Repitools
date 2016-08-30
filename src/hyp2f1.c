@@ -77,9 +77,8 @@ Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1992, 2000 by Stephen L. Moshier
 */
 
-
-#include <mconf.h>
 #include <Rmath.h>
+#include <mconf.h>
 #include <Rexchange.h>
 //#include <gsl/gsl_sf_hyperg.h>
 
