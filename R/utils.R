@@ -40,7 +40,7 @@ setMethod(".validate", "GRanges", function(anno, up, down)
         return(1)
     }
 
-    numCores <- detectCores()
+    numCores <- getOption("mc.cores", detectCores())
     if(maxCPU){
         message("\n\tInformation: The program will take advantage of ", 
             numCores, " CPUs\n\tIf you would like to change this ",
