@@ -33,13 +33,13 @@ library(gplots)
 
 cL <- NULL
 br <- seq(-3,3,length=101)
-col <- colorpanel(low="blue",mid="grey",high="red",n=100)
+col <- colorpanel(low="blue",mid="grey",high="red",n=101)
 cL[[1]] <- list(breaks=br,colors=col)
 br <- seq(-2,2,length=101)
-col <- colorpanel(low="green",mid="black",high="red",n=100)
+col <- colorpanel(low="green",mid="black",high="red",n=101)
 cL[[2]] <- list(breaks=br,colors=col)
 br <- seq(0,20,length=101)
-col <- colorpanel(low="black",mid="grey",high="white",n=100)
+col <- colorpanel(low="black",mid="grey",high="white",n=101)
 cL[[3]] <- list(breaks=br,colors=col)
 
 testD <- list(matrix(runif(400),nrow=20),matrix(rnorm(100),nrow=20),matrix(rpois(100,lambda=10),nrow=20))

@@ -7,7 +7,7 @@
     yy <- (1:nr)/nr
     right <- rep(xx, nr)
     top <- rep(yy, each = nc)
-    cols <- as.character(cut(t(x[nr:1,]),breaks,labels=colorscale,include.lowest=FALSE))
+    cols <- as.character(cut(t(x[nr:1,]),breaks,labels=colorscale[-1],include.lowest=FALSE))
     rectGrob(x = right, y = top, width = 1/nc, height = 1/nr, just = c("right", "top"), gp = gpar(col = NA, fill = cols), name = name)
 }
 
