@@ -41,7 +41,7 @@ setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.in
         RPKM.split <- split(data.frame(position=(start(bins)+end(bins))/2, RPKM=if (is.null(RPKM)) values(bins)$RPKM else RPKM), as.character(seqnames(bins)))
         regions <- lapply(RPKM.split, callChr)
         if (verbose) cat("\n")
-        if (length(cutoffs)>1) rowSums(sapply(regions, function(x) sapply(x,length))) else RangesList(regions)
+        if (length(cutoffs)>1) rowSums(sapply(regions, function(x) sapply(x,length))) else as(regions, "IRangesList")
     }
 
     

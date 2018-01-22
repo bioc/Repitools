@@ -6,7 +6,7 @@ setMethod("sequenceCalc", c("GRanges", "BSgenome"),
     chrs <- levels(seqnames(x))
     names(chrs) <- chrs
     if (!all(chrs %in% seqnames(organism))) stop("Chromosome name mismatch bewteen x and organism")
-    hits <- as(RangesList(lapply(chrs, function(x) IRanges(start(matchPattern(pattern, organism[[x]], fixed=fixed)), width=1))), "GRanges")
+    hits <- as(as(lapply(chrs, function(x) IRanges(start(matchPattern(pattern, organism[[x]], fixed=fixed)), width=1)), "IRangesList"), "GRanges")
     if (!positions) return(countOverlaps(x, hits))
     scores <- vector(mode='list', length=length(x))
     temp <- as.matrix(findOverlaps(x, hits))
