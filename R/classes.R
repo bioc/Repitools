@@ -276,7 +276,7 @@ setMethod("show", "RegionStats", function(object) {
 setClass("ChromaResults",
     representation(
         blocks="GRanges", 
-        regions="IntegerRangesList",
+        regions="IRangesList",
         FDRTable="matrix",
         cutoff="numeric"
     )

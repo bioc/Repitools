@@ -23,7 +23,7 @@
 
 \section{Slots of a ChromaResults object}{
     \code{blocks:}{\code{GRanges} of the blocks used across the genome, with their calculated RPKM}
-    \code{regions:}{\code{IntegerRangesList} of regions determined to be enriched}
+    \code{regions:}{\code{IRangesList} of regions determined to be enriched}
     \code{FDRTable:}{\code{data.frame} showing the FDR at each cutoff tested}
     \code{cutoff:}{The cutoff used to determine enrichment}
 }
