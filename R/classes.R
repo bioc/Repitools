@@ -505,11 +505,14 @@ setMethod("length", "BayMethList",
     function(x) {
         length(x@windows)
 })
-if(!isGeneric("windows")) setGeneric("windows", 
-    function(object) standardGeneric("windows"))
 setMethod("windows", "BayMethList", 
-    function(object) {
-        object@windows
+    function(x, start=NA, end=NA, width=NA) {
+        if (!(identical(start, NA) &&
+              identical(end, NA) &&
+              identical(width, NA)))
+            warning("the \"windows\" method for BayMethList objects ignores ",
+                    "the 'start', 'end', and 'width' arguments")
+        x@windows
 })
 if(!isGeneric("control")) setGeneric("control", 
     function(object) standardGeneric("control"))
