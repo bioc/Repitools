@@ -74,48 +74,48 @@ setGeneric("regionStats", function(x, ...){standardGeneric("regionStats")})
 }
 
 
-setMethod("regionStats","AffymetrixCelSet",
-    function(x, design = NULL, maxFDR = 0.05, n.perm = 5, window = 600, 
-             mean.trim = 0.1, min.probes = 10, max.gap = 500, two.sides = TRUE, ind = NULL, 
-             return.tm = FALSE, verbose = TRUE)
-{
-    if(is.null(design))
-        stop("Design matrix not provided.")
-
-    cdf <- getCdf(x)
-    
-    if( is.null(ind) )
-      ind <- getCellIndices( cdf, useNames=FALSE, unlist=TRUE)
-
-    if( nrow(design) != nbrOfArrays(x) )
-      stop("The number of rows in the design matrix does not equal the number of columns in the probes data matrix")
-	
-    acp <- AromaCellPositionFile$byChipType(getChipType(cdf))
-    ch <- acp[ind,1,drop=TRUE]
-    sp <- acp[ind,2,drop=TRUE]
-  
-    # cut down on the amount of data read, if some rows of the design matrix are all zeros
-    w <- which( rowSums(design != 0) > 0 )
-    x <- extract(x,w, verbose=verbose)
-    dmP <- log2(extractMatrix(x,cells=ind,verbose=verbose))
-  
-    # compute probe-level score of some contrast
-    diffs <- dmP %*% design[w,]
-
-    w <- rowSums( is.na(diffs) )==0
-    if( verbose )
-        message("Removing ", sum(!w), " rows, due to NAs.")
-	
-    diffs <- diffs[w,,drop=FALSE]
-    ch <- ch[w]
-    sp <- sp[w]
-  
-    rm(dmP)
-    ifelse( verbose, print(gc()), gc())
-
-    return(.regionStats(diffs, design, ch, sp, maxFDR, n.perm, window, mean.trim, 
-           min.probes, max.gap, two.sides, verbose, return.tm))
-})
+#setMethod("regionStats","AffymetrixCelSet",
+#    function(x, design = NULL, maxFDR = 0.05, n.perm = 5, window = 600, 
+#             mean.trim = 0.1, min.probes = 10, max.gap = 500, two.sides = TRUE, ind = NULL, 
+#             return.tm = FALSE, verbose = TRUE)
+#{
+#    if(is.null(design))
+#        stop("Design matrix not provided.")
+#
+#    cdf <- getCdf(x)
+#    
+#    if( is.null(ind) )
+#      ind <- getCellIndices( cdf, useNames=FALSE, unlist=TRUE)
+#
+#    if( nrow(design) != nbrOfArrays(x) )
+#      stop("The number of rows in the design matrix does not equal the number of columns in the probes data matrix")
+#	
+#    acp <- AromaCellPositionFile$byChipType(getChipType(cdf))
+#    ch <- acp[ind,1,drop=TRUE]
+#    sp <- acp[ind,2,drop=TRUE]
+#  
+#    # cut down on the amount of data read, if some rows of the design matrix are all zeros
+#    w <- which( rowSums(design != 0) > 0 )
+#    x <- extract(x,w, verbose=verbose)
+#    dmP <- log2(extractMatrix(x,cells=ind,verbose=verbose))
+#  
+#    # compute probe-level score of some contrast
+#    diffs <- dmP %*% design[w,]
+#
+#    w <- rowSums( is.na(diffs) )==0
+#    if( verbose )
+#        message("Removing ", sum(!w), " rows, due to NAs.")
+#	
+#    diffs <- diffs[w,,drop=FALSE]
+#    ch <- ch[w]
+#    sp <- sp[w]
+#  
+#    rm(dmP)
+#    ifelse( verbose, print(gc()), gc())
+#
+#    return(.regionStats(diffs, design, ch, sp, maxFDR, n.perm, window, mean.trim, 
+#           min.probes, max.gap, two.sides, verbose, return.tm))
+#})
 
 
 setMethod("regionStats","matrix",

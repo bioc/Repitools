@@ -368,23 +368,22 @@ setMethod("BayMethList", c("GRanges", "matrix", "matrix", "numeric"),
 # BayMethList <- function(windows, control, sampleInterest, cpgDens,
 # f=matrix(), priorTab=list(), methEst=list(), maskEmpBayes=logical())
 # {
-    if((class(windows) != "GRanges") || (class(control) != "matrix") ||
-        (class(sampleInterest) != "matrix") || 
-        (class(cpgDens) != "numeric") ){
+    if( !("GRanges" %in% class(windows)) || !("matrix" %in% class(control)) ||
+        !("matrix" %in% class(sampleInterest)) || !("numeric" %in% class(cpgDens)) ) {
             stop("\n\n\t `windows' must be of class `GRanges', `control' and
                 `sampleInterest' of class `matrix' and `cpgDens' a `numeric'
                 vector\n\n")
     }
-    if(class(f) != "matrix"){
+    if( !("matrix" %in% class(f)) ){
         stop("\n\n\t 'f' must be a matrix\n\n")
     }
-    if(class(priorTab) != "list"){
+    if( !("list" %in% class(priorTab)) ){
         stop("\n\n\t 'priorTab' must be a list\n\n")
     }
-    if(class(methEst) != "list"){
+    if( !("list" %in% class(methEst)) ){
         stop("\n\n\t 'methEst' must be a list\n\n")
     }
-    if(class(maskEmpBayes) != "logical"){
+    if( !("logical" %in% class(maskEmpBayes)) ){
         stop("\n\n\t 'maskEmpBayes' must be a logical vector\n\n")
     }
     ## get the object dimensions
@@ -446,7 +445,7 @@ setMethod("show", "BayMethList", function(object) {
     #print(apply(object@sampleInterest, 2, summary))
     #cat("\nSummary information for the CpG density:\n")
     #print(summary(object@cpgDens))
-    if((dim(object@f) != c(1,1)) || (!is.na(object@f[1,1]))){
+    if( !all(dim(object@f) == c(1,1)) || (!is.na(object@f[1,1]))){
         cat("\n- Slot for normalizing offset is filled.\n")
     } else {
         cat("\n- Slot for normalizing offset is empty.\n") 

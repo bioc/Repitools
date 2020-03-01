@@ -94,7 +94,7 @@ setMethod("clusterPlots", "ClusteredScoresList",
 	    matplot(pos, x, ylim = c(y.min, y.max), type = 'l', col = cols,
                     xlab = "Relative Position", ylab = "Score", yaxt = 'n',
                     xaxs = 'i', yaxs = 'i', ...)
-	    axis(2, at = c(y.min, (y.min + y.max) / 2, y.max), label = score.labels)
+	    axis(2, at = c(y.min, (y.min + y.max) / 2, y.max), labels = score.labels)
 
             mtext(paste("Within Cluster Coverage", cl.text), outer = TRUE, line = -2)
 	}, profiles, as.list(cl.ord)))

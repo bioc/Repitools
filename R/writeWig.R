@@ -50,37 +50,37 @@ setMethod("writeWig", "GRangesList",
     options(scipen=scipen)
 })
 
-setMethod("writeWig", "AffymetrixCelSet",
-    function(rs, design=NULL, log2.adj=TRUE, verbose=TRUE)
-{
-    scipen <- getOption("scipen")
-    options(scipen=100)
-    if (is.null(design)) {
-        if (verbose) message("Default design matrix\n")
-        design <- matrix(0, nrow=length(rs), ncol=length(rs), dimnames=list(NULL, paste(getNames(rs), ".wig.gz", sep="")))
-        for (i in 1:length(rs)) design[i,i] <- 1
-    }
-
-    w <- which( rowSums(design != 0) > 0 )
-    rs <- extract(rs, w, verbose=verbose)
-    probePositions <- getProbePositionsDf( getCdf(rs), verbose=verbose )
-    dmP <- extractMatrix(rs, cells=probePositions$index, verbose=verbose)
-    if(log2.adj == TRUE) diffs <- log2(dmP) %*% design[w,] else diffs <- dmP %*% design[w,]
-	
-    for (i in 1:ncol(design)) {
-        filename <- colnames(design)[i]
-        if (verbose) message("Processing column",i,"of design matrix -",filename,"\n")
-        f1 <- if (grepl("gz$",filename)) gzfile(filename, open="wt") else file(filename, open="wt")
-        for (chr in unique(probePositions$chr)) {
-            if (verbose) message(chr," ")
-            thisChr <- which(probePositions$chr==chr)
-            #Write header for this chromosome
-            writeLines(paste("variableStep chrom=", chr," span=1",sep=""), f1)
-            temp <- paste(probePositions$position[thisChr], diffs[thisChr,i], sep="\t")
-            writeLines(temp, f1)
-        }
-        if (verbose) message("\n")
-        close(f1)
-    }
-    options(scipen=scipen)
-})
+#setMethod("writeWig", "AffymetrixCelSet",
+#    function(rs, design=NULL, log2.adj=TRUE, verbose=TRUE)
+#{
+#    scipen <- getOption("scipen")
+#    options(scipen=100)
+#    if (is.null(design)) {
+#        if (verbose) message("Default design matrix\n")
+#        design <- matrix(0, nrow=length(rs), ncol=length(rs), dimnames=list(NULL, paste(getNames(rs), ".wig.gz", sep="")))
+#        for (i in 1:length(rs)) design[i,i] <- 1
+#    }
+#
+#    w <- which( rowSums(design != 0) > 0 )
+#    rs <- extract(rs, w, verbose=verbose)
+#    probePositions <- getProbePositionsDf( getCdf(rs), verbose=verbose )
+#    dmP <- extractMatrix(rs, cells=probePositions$index, verbose=verbose)
+#    if(log2.adj == TRUE) diffs <- log2(dmP) %*% design[w,] else diffs <- dmP %*% design[w,]
+#	
+#    for (i in 1:ncol(design)) {
+#        filename <- colnames(design)[i]
+#        if (verbose) message("Processing column",i,"of design matrix -",filename,"\n")
+#        f1 <- if (grepl("gz$",filename)) gzfile(filename, open="wt") else file(filename, open="wt")
+#        for (chr in unique(probePositions$chr)) {
+#            if (verbose) message(chr," ")
+#            thisChr <- which(probePositions$chr==chr)
+#            #Write header for this chromosome
+#            writeLines(paste("variableStep chrom=", chr," span=1",sep=""), f1)
+#            temp <- paste(probePositions$position[thisChr], diffs[thisChr,i], sep="\t")
+#            writeLines(temp, f1)
+#        }
+#        if (verbose) message("\n")
+#        close(f1)
+#    }
+#    options(scipen=scipen)
+#})

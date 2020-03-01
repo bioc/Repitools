@@ -1,4 +1,4 @@
-setOldClass("AffymetrixCelSet")
+#setOldClass("AffymetrixCelSet")
 
 setGeneric("featureScores", signature = c("x", "anno"), function(x, anno, ...)
                                            {standardGeneric("featureScores")})
@@ -215,22 +215,22 @@ setMethod(".featureScores", c("matrix", "GRanges"),
                             s.width = NULL)
 })
 
-setMethod(".featureScores", c("AffymetrixCelSet", "GRanges"),
-    function(x, y, p.anno = NULL, mapping = NULL, chrs = NULL, ...)
-{
-    if(is.null(mapping) && is.null(p.anno))
-        p.anno <- getProbePositionsDf(getCdf(x), chrs, verbose = verbose)
-
-    if(length(intersect(p.anno$chr, seqlevels(y))) == 0)
-        stop("Chromosome names of probe annotation are all different to ", 
-             "chromosome names of the feature annotation. Provide a mapping ", 
-             "with the 'chrs' argument.")
-
-    intens <- extractMatrix(x, cells = p.anno$index, verbose = verbose)
-    p.anno$index <- 1:nrow(p.anno)
-
-    .featureScores(intens, y, p.anno = p.anno, mapping = mapping, ...)
-})
+#setMethod(".featureScores", c("AffymetrixCelSet", "GRanges"),
+#    function(x, y, p.anno = NULL, mapping = NULL, chrs = NULL, ...)
+#{
+#    if(is.null(mapping) && is.null(p.anno))
+#        p.anno <- getProbePositionsDf(getCdf(x), chrs, verbose = verbose)
+#
+#    if(length(intersect(p.anno$chr, seqlevels(y))) == 0)
+#        stop("Chromosome names of probe annotation are all different to ", 
+#             "chromosome names of the feature annotation. Provide a mapping ", 
+#             "with the 'chrs' argument.")
+#
+#    intens <- extractMatrix(x, cells = p.anno$index, verbose = verbose)
+#    p.anno$index <- 1:nrow(p.anno)
+#
+#    .featureScores(intens, y, p.anno = p.anno, mapping = mapping, ...)
+#})
 
 setMethod("featureScores", c("ANY", "GRanges"), function(x, anno,
            up = NULL, down = NULL, ...)

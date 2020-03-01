@@ -96,28 +96,29 @@ setMethod(".blocksStats", c("matrix", "GRanges"),
     cbind(annoGR2DF(anno), results)
 })
 
-setMethod(".blocksStats", c("AffymetrixCelSet", "GRanges"),
-    function(x, anno, up, down, p.anno = NULL, chrs = NULL, mapping = NULL,
-             design = NULL, ...)
-{
-    if(is.null(design))
-        stop("No design matrix given.")
 
-    if(nrow(design) != nbrOfArrays(x))
-        stop("The number of rows in the design matrix does not equal the number
-              of arrays in the CEL set.\n")
-
-    used <- which(rowSums(design != 0) > 0)
-    x <- extract(x, used, verbose = verbose)
-
-    if(is.null(mapping) && is.null(p.anno))
-        p.anno <- getProbePositionsDf(getCdf(x), chrs, verbose = verbose)
-    intens <- extractMatrix(x, cells = p.anno$index, verbose = verbose)
-    p.anno$index <- 1:nrow(p.anno)
-
-    .blocksStats(intens, anno, up, down, p.anno, mapping,
-                 design = design[used, , drop = FALSE], ...)
-})
+#setMethod(".blocksStats", c("AffymetrixCelSet", "GRanges"),
+#    function(x, anno, up, down, p.anno = NULL, chrs = NULL, mapping = NULL,
+#             design = NULL, ...)
+#{
+#    if(is.null(design))
+#        stop("No design matrix given.")
+#
+#    if(nrow(design) != nbrOfArrays(x))
+#        stop("The number of rows in the design matrix does not equal the number
+#              of arrays in the CEL set.\n")
+#
+#    used <- which(rowSums(design != 0) > 0)
+#    x <- extract(x, used, verbose = verbose)
+#
+#    if(is.null(mapping) && is.null(p.anno))
+#        p.anno <- getProbePositionsDf(getCdf(x), chrs, verbose = verbose)
+#    intens <- extractMatrix(x, cells = p.anno$index, verbose = verbose)
+#    p.anno$index <- 1:nrow(p.anno)
+#
+#    .blocksStats(intens, anno, up, down, p.anno, mapping,
+#                 design = design[used, , drop = FALSE], ...)
+#})
 
 setMethod(".blocksStats", c("GRangesList", "GRanges"),
     function(x, anno, up, down, seq.len = NULL, design = NULL, lib.size = "lane",

@@ -54,91 +54,91 @@ setGeneric("cpgBoxplots", function(this, ...){standardGeneric("cpgBoxplots")})
 	cut(u,breaks=q)
 }
 
-setMethod("cpgBoxplots", "AffymetrixCelSet", function(this, samples=c(1,2), subsetChrs="chr[1-5]", gcContent=7:18, 
-                                                     calcDiff=FALSE, verbose=FALSE, nBins=40, pdfFile=NULL,
-													 ylim=if (calcDiff) c(-5,6) else c(4,15), 
-													 col=if (calcDiff) "salmon" else c("lightgreen","lightblue"),
-													 mfrow=if (!is.null(pdfFile)) c(2,2) else c(1,1)) {
-													 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-  
-  if( length(samples) != 2 )
-    stop("Can only do boxplots on a pair of samples.")
-	
-  if(calcDiff && length(col) != 1)
-    stop("calcDiff=TRUE, but length(col) != 1.")
-	
-  if(!calcDiff && length(col) != 2)
-    stop("calcDiff=FALSE, but length(col) != 2.")
-	
-  if( max(samples) > nbrOfArrays(this) )
-    stop("'samples' is out of range.")
-  	
-  cdf <- getCdf(this)
-  mainCdf <- getMainCdf(cdf)
-  
-  if (is.null(subsetChrs))
-    units <- seq_len(nbrOfUnits(cdf))
-  else
-    units <- indexOf(cdf,subsetChrs)
-	
-  if( length(units) == 0 )
-    stop("'units' is length 0.  Specify an appropriate 'subsetChrs' argument.")
-	
-	 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Read indices
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  verbose && enter(verbose, sprintf("Reading indices for %d units (unique CDF) ",length(units)));
-  indices <- getCellIndices(cdf,units=units,stratifyBy="pm",verbose=verbose)
-  indices <- unlist(indices,use.names=FALSE)
-  verbose && exit(verbose);
-  
-  verbose && enter(verbose, sprintf("Reading indices for %d units (main CDF) ",length(units)));
-  mainIndices <- getCellIndices(mainCdf,units=units,stratifyBy="pm",verbose=verbose)
-  mainIndices <- unlist(mainIndices,use.names=FALSE)
-  verbose && exit(verbose);
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Counting bases
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  verbose && enter(verbose, sprintf("Counting bases for %d probes",length(mainIndices)));
-  acs <- AromaCellSequenceFile$byChipType(getChipType(mainCdf))
-  cb <- countBases(acs,cells=mainIndices)
-  gcCount <- rowSums( cb[,c("C","G")] )
-  verbose && exit(verbose);
-  
-  cs <- extract(this,samples)
-  sampleNames <- getNames(cs)
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Reading data
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  verbose && enter(verbose, "Reading intensity data");
-  dm <- extractMatrix(cs,cells=indices,verbose=verbose)
-  dm <- log2(dm)
-  verbose && exit(verbose);
-  
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Reading CpG density data
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  verbose && enter(verbose, "Reading and binning Cpg data");
-  acc <- AromaCellCpgFile$byChipType(getChipType(cdf))
-  cpgDens <- acc[indices,1,drop=TRUE]
-  bins <- .createBins(cpgDens, nBins)
-  verbose && exit(verbose);
-
-  .cpgBoxplots(dm, bins, gcContent, nBins, calcDiff, pdfFile, mfrow, col, ylim, gcCount, cb, sampleNames)												 
-} 
-)
+#setMethod("cpgBoxplots", "AffymetrixCelSet", function(this, samples=c(1,2), subsetChrs="chr[1-5]", gcContent=7:18, 
+#                                                     calcDiff=FALSE, verbose=FALSE, nBins=40, pdfFile=NULL,
+#													 ylim=if (calcDiff) c(-5,6) else c(4,15), 
+#													 col=if (calcDiff) "salmon" else c("lightgreen","lightblue"),
+#													 mfrow=if (!is.null(pdfFile)) c(2,2) else c(1,1)) {
+#													 
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#  # Validate arguments
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#  # Argument 'verbose':
+#  verbose <- Arguments$getVerbose(verbose);
+#  if (verbose) {
+#    pushState(verbose);
+#    on.exit(popState(verbose));
+#  }
+#  
+#  if( length(samples) != 2 )
+#    stop("Can only do boxplots on a pair of samples.")
+#	
+#  if(calcDiff && length(col) != 1)
+#    stop("calcDiff=TRUE, but length(col) != 1.")
+#	
+#  if(!calcDiff && length(col) != 2)
+#    stop("calcDiff=FALSE, but length(col) != 2.")
+#	
+#  if( max(samples) > nbrOfArrays(this) )
+#    stop("'samples' is out of range.")
+#  	
+#  cdf <- getCdf(this)
+#  mainCdf <- getMainCdf(cdf)
+#  
+#  if (is.null(subsetChrs))
+#    units <- seq_len(nbrOfUnits(cdf))
+#  else
+#    units <- indexOf(cdf,subsetChrs)
+#	
+#  if( length(units) == 0 )
+#    stop("'units' is length 0.  Specify an appropriate 'subsetChrs' argument.")
+#	
+#	 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  # Read indices
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  verbose && enter(verbose, sprintf("Reading indices for %d units (unique CDF) ",length(units)));
+#  indices <- getCellIndices(cdf,units=units,stratifyBy="pm",verbose=verbose)
+#  indices <- unlist(indices,use.names=FALSE)
+#  verbose && exit(verbose);
+#  
+#  verbose && enter(verbose, sprintf("Reading indices for %d units (main CDF) ",length(units)));
+#  mainIndices <- getCellIndices(mainCdf,units=units,stratifyBy="pm",verbose=verbose)
+#  mainIndices <- unlist(mainIndices,use.names=FALSE)
+#  verbose && exit(verbose);
+#
+#
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  # Counting bases
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  verbose && enter(verbose, sprintf("Counting bases for %d probes",length(mainIndices)));
+#  acs <- AromaCellSequenceFile$byChipType(getChipType(mainCdf))
+#  cb <- countBases(acs,cells=mainIndices)
+#  gcCount <- rowSums( cb[,c("C","G")] )
+#  verbose && exit(verbose);
+#  
+#  cs <- extract(this,samples)
+#  sampleNames <- getNames(cs)
+#
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  # Reading data
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  verbose && enter(verbose, "Reading intensity data");
+#  dm <- extractMatrix(cs,cells=indices,verbose=verbose)
+#  dm <- log2(dm)
+#  verbose && exit(verbose);
+#  
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  # Reading CpG density data
+#  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  verbose && enter(verbose, "Reading and binning Cpg data");
+##  acc <- AromaCellCpgFile$byChipType(getChipType(cdf))
+#  cpgDens <- acc[indices,1,drop=TRUE]
+#  bins <- .createBins(cpgDens, nBins)
+#  verbose && exit(verbose);
+#
+#  .cpgBoxplots(dm, bins, gcContent, nBins, calcDiff, pdfFile, mfrow, col, ylim, gcCount, cb, sampleNames)												 
+#} 
+#)
 
 setMethod("cpgBoxplots", "matrix", function(this, ndfTable = NULL, organism, samples=c(1,2), subsetChrs="chr[1-5]", gcContent=7:18, 
                                                      calcDiff=FALSE, verbose=FALSE, nBins=40, pdfFile=NULL,
@@ -152,11 +152,11 @@ setMethod("cpgBoxplots", "matrix", function(this, ndfTable = NULL, organism, sam
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
+  #verbose <- Arguments$getVerbose(verbose);
+  #if (verbose) {
+  #  pushState(verbose);
+  #  on.exit(popState(verbose));
+  #}
   
   if( length(samples) != 2 )
     stop("Can only do boxplots on a pair of samples.")
@@ -181,11 +181,12 @@ setMethod("cpgBoxplots", "matrix", function(this, ndfTable = NULL, organism, sam
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Counting bases
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  verbose && enter(verbose, sprintf("Counting bases for %d probes",length(usefulProbeIndices)))
+  #verbose && enter(verbose, sprintf("Counting bases for %d probes",length(usefulProbeIndices)))
+  if(verbose) sprintf("Counting bases for %d probes.\n",length(usefulProbeIndices))
   ndfTable <- ndfTable[usefulProbeIndices, ]
   gcCount <- sapply(gregexpr("[CG]", ndfTable$sequence), length)
   cb <- sapply(ndfTable$sequence, length)
-  verbose && exit(verbose)
+  #verbose && exit(verbose)
 
   densities <- cpgDensityCalc(ndfTable, 300, organism = organism)
   bins <- .createBins(densities, nBins) 	

@@ -5,9 +5,9 @@ useDynLib(Repitools)
 
 #  All functions exported other than those starting with "."
 import(methods, BiocGenerics, S4Vectors, IRanges, GenomicRanges, GenomeInfoDb, BSgenome, edgeR)
-importFrom(aroma.affymetrix, AffymetrixCelSet)
+#importFrom(aroma.affymetrix, AffymetrixCelSet)
 importFrom(parallel, detectCores, mclapply)
-importFrom(Biostrings, BString, letterFrequency, BStringSet, DNAStringSet)
+importFrom(Biostrings, BString, letterFrequency, BStringSet, DNAStringSet, DNAString, matchPattern)
 importFrom(Rsamtools, ScanBamParam, scanBamFlag)
 importFrom(GenomicAlignments, readGAlignments)
 importFrom(DNAcopy, CNA, smooth.CNA, segment)
@@ -19,6 +19,16 @@ importFrom(grid, grid.newpage, viewport, gList, gTree, grid.draw, grid.text, rec
 importFrom(gsmoothr, tmeanC)
 importFrom(cluster, pam)
 importFrom(Rsolnp, solnp)
+  importFrom("graphics", "abline", "axis", "barplot", "bxp", "grid",
+             "layout", "legend", "lines", "matlines", "matplot", "mtext",
+             "par", "persp", "plot", "plot.new", "plot.window", "points",
+             "polygon", "rect", "text", "title")
+  importFrom("grDevices", "dev.off", "pdf", "rainbow")
+  importFrom("stats", "dbeta", "embed", "filter", "kmeans", "lm",
+             "lowess", "p.adjust", "predict", "pt", "qnorm", "t.test")
+  importFrom("utils", "read.table", "str")
+
+
 exportClasses(FastQC, SequenceQC, SequenceQCSet, ScoresList, ClusteredScoresList, QdnaData, BayMethList)
 exportMethods(show)
 exportPattern("^[^\\_|^\\.]")
