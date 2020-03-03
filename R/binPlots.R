@@ -12,7 +12,8 @@ setMethod("binPlots", "ScoresList",
 
     summarize <- match.arg(summarize)
     plot.type <- match.arg(plot.type)
-    if(class(ordering) %in% c("numeric", "integer", "factor"))
+    #if(class(ordering) %in% c("numeric", "integer", "factor"))
+    if( length(intersect(class(ordering), c("numeric", "integer", "factor"))) >0 )
         ordering <- data.frame(ordering)
     if(nrow(ordering) != nrow(tables(x)[[1]]))
         stop("Length of the ordering is not the same as the number of features.")
