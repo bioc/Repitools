@@ -600,7 +600,7 @@ setReplaceMethod("cpgDens", "BayMethList", function(x, value) {
 setGeneric("fOffset<-", function(x, value) standardGeneric("fOffset<-"))
 setReplaceMethod("fOffset", "BayMethList", function(x, value) {
     
-    if(class(value) != "matrix"){
+    if( !("matrix" %in% class(value)) ){
         stop("The offset must be of class matrix with the same number of
 columns as sample of interests.")
     }
