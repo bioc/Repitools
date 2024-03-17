@@ -1,18 +1,18 @@
 Package: Repitools
-Version: 1.49.0
+Version: 1.49.1
 Date: 2021-11-21
 Title: Epigenomic tools
-Author: Mark Robinson <mark.robinson@imls.uzh.ch>, Dario Strbenac
+Author: Mark Robinson <mark.robinson@mls.uzh.ch>, Dario Strbenac
         <dario.strbenac@sydney.edu.au>, Aaron Statham
         <a.statham@garvan.org.au>, Andrea Riebler
         <andrea.riebler@math.ntnu.no>
-Maintainer: Mark Robinson <mark.robinson@imls.uzh.ch>
+Maintainer: Mark Robinson <mark.robinson@mls.uzh.ch>
 LazyLoad: Yes
-Depends: R (>= 3.0.0), methods, BiocGenerics (>= 0.8.0)
+Depends: R (>= 3.5.0), methods, BiocGenerics (>= 0.8.0)
 Imports: parallel, S4Vectors (>= 0.17.25), IRanges (>= 2.13.12), GenomeInfoDb,
         GenomicRanges, Biostrings, Rsamtools, GenomicAlignments, rtracklayer,
         BSgenome (>= 1.47.3), gplots, grid, MASS, gsmoothr, edgeR (>= 3.4.0),
-        DNAcopy, Ringo, Rsolnp, cluster
+        DNAcopy, Rsolnp, cluster
 Suggests: ShortRead, BSgenome.Hsapiens.UCSC.hg18
 Description: Tools for the analysis of enrichment-based epigenomic
         data.  Features include summarization and visualization of

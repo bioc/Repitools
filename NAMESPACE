@@ -1,5 +1,7 @@
 ## Load C-code
-useDynLib(Repitools)
+# attribution: line below adapted from the old Ringo package
+# https://www.bioconductor.org/packages/release/bioc/src/contrib/Ringo_1.66.0.tar.gz
+useDynLib(Repitools, .ringoMovingMeanSd=moving_mean_sd)
 
 #.onLoad <- function(lib, pkg) require(methods)
 
@@ -13,7 +15,7 @@ importFrom(GenomicAlignments, readGAlignments)
 importFrom(DNAcopy, CNA, smooth.CNA, segment)
 importFrom(MASS, rlm)
 importFrom(rtracklayer, import, BigWigFile)
-importFrom(Ringo, sliding.meansd)
+#importFrom(Ringo, sliding.meansd)
 importFrom(gplots, colorpanel)
 importFrom(grid, grid.newpage, viewport, gList, gTree, grid.draw, grid.text, rectGrob, gpar)
 importFrom(gsmoothr, tmeanC)

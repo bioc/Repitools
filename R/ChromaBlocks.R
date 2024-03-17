@@ -1,4 +1,15 @@
+
 setGeneric("ChromaBlocks", function(rs.ip, rs.input, ...){standardGeneric("ChromaBlocks")})
+
+# attribution: following function is used from the old Ringo package
+# https://www.bioconductor.org/packages/release/bioc/src/contrib/Ringo_1.66.0.tar.gz
+.sliding.meansd <- function(positions, scores, half.width) {
+  stopifnot(!is.unsorted(positions), length(positions) == length(scores), half.width >= 0)
+  res <- .Call(.ringoMovingMeanSd, as.integer(positions), as.numeric(scores), as.integer(half.width))
+  colnames(res) <- c("mean","sd","count")
+  rownames(res) <- positions
+  return(res)
+}#sliding.meansd
 
 setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.input, organism, chrs, ipWidth=100, inputWidth=500, preset=NULL, blockWidth=NULL, minBlocks=NULL, extend=NULL, cutoff=NULL, FDR=0.01, nPermutations=5, nCutoffs=20, cutoffQuantile=0.98, verbose=TRUE, seq.len=NULL) {
 
@@ -14,7 +25,7 @@ setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.in
     
     .callRegions <- function(bins, RPKM=NULL, cutoffs, blockWidth, ipWidth, minBlocks) {
         callCutoff <- function(dat, cutoff) {
-            dat$cutoff <- sliding.meansd(dat$position, as.integer(dat$RPKM>=cutoff), ipWidth*blockWidth/2)[,"mean"]>=minBlocks/blockWidth
+            dat$cutoff <- .sliding.meansd(dat$position, as.integer(dat$RPKM>=cutoff), ipWidth*blockWidth/2)[,"mean"]>=minBlocks/blockWidth
             temp <- dat$mean>cutoff&dat$cutoff
             #clean the ends of the chromosomes
             temp[c(1:(blockWidth/2), (length(temp)-(blockWidth/2)):length(temp))] <- FALSE
@@ -33,7 +44,7 @@ setMethod("ChromaBlocks", c("GRangesList", "GRangesList"), function(rs.ip, rs.in
         
         callChr <- function(dat) {
             if (verbose) cat(".")
-            dat$mean <- sliding.meansd(dat$position, dat$RPKM, ipWidth*blockWidth/2)[,"mean"]
+            dat$mean <- .sliding.meansd(dat$position, dat$RPKM, ipWidth*blockWidth/2)[,"mean"]
             if (!is.null(extend)) dat$extend <- dat$mean<extend 
             if (length(cutoffs)>1) sapply(cutoffs, function(x) callCutoff(dat, x)) else callCutoff(dat, cutoffs)
         }
