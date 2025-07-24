@@ -6,7 +6,7 @@ useDynLib(Repitools, .ringoMovingMeanSd=moving_mean_sd)
 #.onLoad <- function(lib, pkg) require(methods)
 
 #  All functions exported other than those starting with "."
-import(methods, BiocGenerics, S4Vectors, IRanges, GenomicRanges, GenomeInfoDb, BSgenome, edgeR)
+import(methods, BiocGenerics, S4Vectors, IRanges, GenomicRanges, Seqinfo, BSgenome, edgeR)
 #importFrom(aroma.affymetrix, AffymetrixCelSet)
 importFrom(parallel, detectCores, mclapply)
 importFrom(Biostrings, BString, letterFrequency, BStringSet, DNAStringSet, DNAString, matchPattern)
