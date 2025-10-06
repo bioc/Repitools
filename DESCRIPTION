@@ -1,5 +1,5 @@
 Package: Repitools
-Version: 1.55.1
+Version: 1.55.2
 Date: 2025-07-24
 Title: Epigenomic tools
 Author: Mark Robinson <mark.robinson@mls.uzh.ch>, Dario Strbenac
@@ -31,7 +31,8 @@ Collate: classes.R multiHeatmap.R BAM2GRanges.R FastQC-class.R
         cpgDensityCalc.R blocksStats.R binPlots.R chromosomeCNplots.R
         checkProbes.R relativeCN.R enrichmentCalc.R clusterPlots.R
         summarizeScores.R determineOffset.R empBayes.R methylEst.R
-        hyper.R maskOut.R
+        hyper.R maskOut.R zzz.R
 License: LGPL (>= 2)
 Packaged: 2014-03-05 06:15:16 UTC; biocbuild
 biocViews: DNAMethylation, GeneExpression, MethylSeq
+PackageStatus: Deprecated
